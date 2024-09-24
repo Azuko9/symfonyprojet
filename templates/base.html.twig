@@ -8,10 +8,16 @@
         {% endblock %}
 
         {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
+        <script src="https://cdn.tailwindcss.com"></script>
     </head>
     <body>
-        {% block body %}{% endblock %}
+        {% include "header.html.twig" %}
+        <div class="p-1">
+            {% block body %}{% endblock %}
+        </div>
+
+        
+       
     </body>
 </html>
