@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %} {% block title %}Accueil {% endblock %} {% block
+body %}
+<div class="text-center m-6">
+  <a class="btn btn-primary mb-1" href="{{ path('app_post_new') }}">
+    nouveau post</a>
+</div>
+
+
+
+
+<div class="flex flex-wrap justify-center w-full gap-8">
+  {% for post in Articles %}
+
+  <div  class=" carte perspective-[1000px] transition-all ease-in-out delay-150" >
+    <div class="contenuCarte ">
+      {% if post.category %}
+      <div class=" hover:bg-[length:490px_490px] hover:shadow-[0px_0px_10px_10px_{{post.category.color}}] hover:border-4 duration-500 min-w-[320px] max-w-[350px]  card w-[20vw] bg-[url({{post.image}})] bg-[length:680px_680px] bg-center m-2 border-8 border-[{{post.category.color}}] ">
+
+        <figure>
+          <img class="rounded-full p-20 opacity-0" src="{{ post.image }}" alt="Pets" />
+        </figure>
+        <div class="card-body p-3 bg-black backdrop-blur-md bg-opacity-40 text-[#ffffff] rounded-b-[8px]">
+          <h2 class="card-title">{{ post.title }}</h2>
+          {% if post.category %}
+          <h3>sa catégorie est: {{ post.category.name }}</h3>
+      {% endif %}
+          <div class="card-actions flex items-center justify-between color">
+            Posté le:
+            {{post.createdAt|date('d-m-Y')}}
+            à
+            {{post.createdAt|date('H:i')}}
+            <a class="btn btn-primary justify-end" href="{{ path('post_show', { "id": post.id }) }}">Détail</a>
+          </div>
+        </div>
+
+
+      {% endif %}
+      </div>
+      
+    </div>
+  </div>
+
+  {% endfor %}
+</div>
+
+{% endblock %}

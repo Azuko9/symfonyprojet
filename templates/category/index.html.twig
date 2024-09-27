@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %} {% block title %}Category{% endblock %} {% block
+body %}
+
+<a class="btn btn-primary mb-1" href="{{ path('app_category_new') }}">
+  nouvelle catégorie</a
+>
+{% for category in categories %}
+<h2>{{ category.name }}</h2>
+
+{% endfor %} {% endblock %}

@@ -1,7 +1,16 @@
-<nav class="bg-zinc-600 h-24">
-    <ul>
-        <li>
-            <a href="">Accueil</a>
-        </li>
-    </ul>
+<nav class="bg-[#646EE4] flex justify-between p-3 items-center">
+  <img class="h-[56px]" src="{{ asset('img/logo.png') }}" alt="" />
+
+
+  </div>
+  {% if app.session.get('categories') %} {% for categorie in
+  app.session.get('categories') %}
+  <a class="btn btn-primary mb-1 bg-[{{categorie.color}}] hover:bg-white hover:text-[{{categorie.color}}] hover:border-[{{categorie.color}}] border-4">{{ categorie.name }}</a>
+  {% endfor %} {% endif %}
+    <div class="avatar">
+    <div class="w-24 rounded">
+      <a class="" href="  {{ path('app_utilisateur') }}"
+        ><img class="rounded-full" src="{{ asset('img/8121295.gif') }}"
+      /></a>
+    </div>
 </nav>
