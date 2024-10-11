@@ -1,16 +1,15 @@
 {% extends "base.html.twig" %} {% block title %}Afficher un article {% endblock
 %} {% block body %}
 
-<div class="card w-[100vw] bg-base-100 shadow-xl">
-  <figure>
-    <img src="{{ asset(article.image) }}" alt="Pets" />
-  </figure>
+<div
+  class="card w-[100vw] bg-[url(../img/pets/{{
+    asset(article.image)
+  }})] bg-cover max-w-[600px]"
+>
   <div class="card-body">
     <h2 class="card-title">{{ article.title }}</h2>
     <p>{{ article.content }}</p>
-    <p class="bg-[{{ article.category.color }}]">
-      Sa catégorie: {{ article.category.name }}
-    </p>
+    <p class="">Sa catégorie: {{ article.category.name }}</p>
 
     Posté le:
     {{article.createdAt|date('d-m-Y')}}

@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %} {% block title %}Hello ProfileController!{%
+endblock %} {% block body %}
+<h1>Profil de {{ user.email }}</h1>
+
+<p><strong>Rôle :</strong> {{ user.roles[0] ?? "Aucun rôle attribué" }}</p>
+<p><strong>Email :</strong> {{ user.email }}</p>
+
+{# Ajoute d'autres informations utilisateur ici #}
+
+<h2>Modifier votre profil</h2>
+<a href="{{ path('app_profile') }}">Modifier</a>
+{% endblock %}

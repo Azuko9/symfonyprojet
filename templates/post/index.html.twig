@@ -14,12 +14,12 @@ body %}
   <div  class=" carte perspective-[1000px] transition-all ease-in-out delay-150" >
     <div class="contenuCarte ">
       {% if post.category %}
-      <div class=" hover:bg-[length:490px_490px] hover:shadow-[0px_0px_10px_10px_{{post.category.color}}] hover:border-4 duration-500 min-w-[320px] max-w-[350px]  card w-[20vw] bg-[url({{post.image}})] bg-[length:680px_680px] bg-center m-2 border-8 border-[{{post.category.color}}] ">
+      <div class=" hover:bg-[length:490px_490px] hover:shadow-[0px_0px_10px_10px_{{post.category.color}}] hover:border-4 duration-500 min-w-[320px] max-w-[350px]  card w-[20vw] bg-[url(img/pets/{{post.image}})] bg-[length:680px_680px] bg-center m-2 border-[2px] border-[{{post.category.color}}] shadow-[0px_0px_2px_2px_{{post.category.color}}] ">
 
         <figure>
-          <img class="rounded-full p-20 opacity-0" src="{{ post.image }}" alt="Pets" />
+          <img class="rounded-full opacity-0" src="img/pets/{{post.image }}" alt="Pets" />
         </figure>
-        <div class="card-body p-3 bg-black backdrop-blur-md bg-opacity-40 text-[#ffffff] rounded-b-[8px]">
+        <div class="card-body  bg-[{{post.category.color}}] backdrop-blur-md bg-opacity-20 text-[#ffffff] rounded-b-[14px]">
           <h2 class="card-title">{{ post.title }}</h2>
           {% if post.category %}
           <h3>sa catégorie est: {{ post.category.name }}</h3>
@@ -29,7 +29,7 @@ body %}
             {{post.createdAt|date('d-m-Y')}}
             à
             {{post.createdAt|date('H:i')}}
-            <a class="btn btn-primary justify-end" href="{{ path('post_show', { "id": post.id }) }}">Détail</a>
+            <a class="btn btn-primary bg-[#ffffff55] border-[{{post.category.color}}] justify-end" href="{{ path('post_show', { "id": post.id }) }}">Détail</a>
           </div>
         </div>
 

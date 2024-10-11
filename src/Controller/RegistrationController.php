@@ -21,11 +21,34 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+
             /** @var string $plainPassword */
             $plainPassword = $form->get('plainPassword')->getData();
 
             // encode the plain password
             $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
+
+            // Récupérer les rôles sélectionnés
+            $roles = $form->get('roles')->getData();
+            // Vérifie si l'utilisateur tente de créer un profil administrateur
+            if (in_array('ROLE_ADMIN', $user->getRoles())) {
+                // Récupérer le mot de passe administrateur envoyé via le champ caché
+                $adminPassword = $request->request->get('admin_password');
+
+                // Comparer le mot de passe administrateur avec celui défini en dur (ou dans une variable d'environnement)
+                $adminPasswordExpected = 'monMotDePasseAdmin'; // Définis ton mot de passe administrateur ici
+                if ($adminPassword !== $adminPasswordExpected) {
+                    // Annule l'enregistrement si le mot de passe est incorrect
+                    $this->addFlash('danger', 'Mot de passe administrateur incorrect.');
+                    return $this->redirectToRoute('app_register');
+                }
+            }
+
+
+
+            // Attribuer les rôles à l'utilisateur
+            $user->setRoles($roles);
 
             $entityManager->persist($user);
             $entityManager->flush();
@@ -38,5 +61,33 @@ class RegistrationController extends AbstractController
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form,
         ]);
+    }
+
+    private $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
+    public function promoteToAdmin(int $userId): Response
+    {
+        // Récupérer l'utilisateur par son ID
+        $user = $this->entityManager->getRepository(User::class)->find($userId);
+
+        if (!$user) {
+            return new Response('Utilisateur non trouvé', 404);
+        }
+
+        // Ajouter ROLE_ADMIN au tableau des rôles existants
+        $roles = $user->getRoles();
+        $roles[] = 'ROLE_ADMIN';
+        $user->setRoles(array_unique($roles)); // Utiliser array_unique pour éviter les doublons
+
+        // Sauvegarder les changements dans la base de données
+        $this->entityManager->persist($user);
+        $this->entityManager->flush();
+
+        return new Response('Utilisateur promu à ROLE_ADMIN');
     }
 }
