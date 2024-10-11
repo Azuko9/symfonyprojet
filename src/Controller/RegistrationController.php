@@ -32,19 +32,6 @@ class RegistrationController extends AbstractController
             // Récupérer les rôles sélectionnés
             $roles = $form->get('roles')->getData();
             // Vérifie si l'utilisateur tente de créer un profil administrateur
-            if (in_array('ROLE_ADMIN', $user->getRoles())) {
-                // Récupérer le mot de passe administrateur envoyé via le champ caché
-                $adminPassword = $request->request->get('admin_password');
-
-                // Comparer le mot de passe administrateur avec celui défini en dur (ou dans une variable d'environnement)
-                $adminPasswordExpected = 'monMotDePasseAdmin'; // Définis ton mot de passe administrateur ici
-                if ($adminPassword !== $adminPasswordExpected) {
-                    // Annule l'enregistrement si le mot de passe est incorrect
-                    $this->addFlash('danger', 'Mot de passe administrateur incorrect.');
-                    return $this->redirectToRoute('app_register');
-                }
-            }
-
 
 
             // Attribuer les rôles à l'utilisateur

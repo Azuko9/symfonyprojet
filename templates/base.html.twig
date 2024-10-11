@@ -20,16 +20,5 @@
     <script defer src="js/carte.js"></script>
     #} {% endblock %}
   </head>
-  <body>
-    {% include "header.html.twig" %}
-    <div class="p-1">
-      {% block body %}
-      <!-- Afficher les messages flash ici -->
-      {% for message in app.flashes('success') %}
-      <div class="alert alert-success">{{ message }}</div>
-      {% endfor %} {% for message in app.flashes('danger') %}
-      <div class="alert alert-danger">{{ message }}</div>
-      {% endfor %} {% endblock %}
-    </div>
-  </body>
+  <body></body>
 </html>
